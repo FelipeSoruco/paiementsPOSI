@@ -28,7 +28,7 @@
   .chip{border:1px solid #cfd4dc;border-radius:999px;padding:5px 12px;font-size:13px;background:#fff}
   .chip.on{background:var(--brand);border-color:var(--brand);color:#fff}
   .lab{color:var(--muted);font-size:12px;margin-right:2px}
-  .eff{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px}
+  .eff{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
   .opt{border:1px solid #cfd4dc;border-radius:9px;padding:10px 12px;background:#fff}
   .opt b{display:block;font-size:13px}.opt small{color:var(--muted);font-size:11.5px;line-height:1.3;display:block;margin-top:2px}
   .opt.on{border:2px solid var(--brand);background:#f1f5fb;padding:9px 11px}
@@ -84,7 +84,6 @@
       <div class="opt"><b>Montant fixe</b><small>Prix imposé par produit</small></div>
       <div class="opt"><b>Produit gratuit</b><small>Onsite, Online ou PN</small></div>
       <div class="opt"><b>Contribution seule</b><small>Ne paie que les 24 €</small></div>
-      <div class="opt"><b>Services</b><small>Ajoute des services (1 de chaque)</small></div>
     </div>
     <div class="panel">
       <div class="grid g4">
@@ -94,6 +93,9 @@
         <div><label>Nombre de produits (quota)</label><div class="f">4</div></div>
       </div>
       <div class="note">La contribution environnementale n'est jamais réduite. Seule une gratuité ou « Contribution seule » peut l'exonérer.</div>
+    </div>
+    <div style="margin-top:14px"><label>Services associés <em style="font-style:normal">(optionnel · accréditations uniquement · sans effet sur le prix)</em></label>
+      <div class="f" style="display:flex;gap:6px;flex-wrap:wrap;align-items:center"><span class="chip on">Wifi ✕</span><span class="chip on">Invité Marché ✕</span><span class="chip on">Salle Presse ✕</span><span style="color:var(--muted)">+ ajouter (un seul de chaque)</span></div>
     </div>
     <div class="tog" style="margin-top:10px"><div class="sw"></div><div>Paiement différé<small>La facture est créée mais reste impayée.</small></div></div>
   </section>
@@ -126,6 +128,7 @@
     <ul>
       <li>–100 € HT sur jusqu'à <b>4</b> accréditations M Tardif, à choisir dans le panier</li>
       <li>Contribution 24 € <b>non</b> réduite</li>
+      <li>Services Wifi, Invité Marché, Salle Presse ajoutés aux accréditations ciblées</li>
       <li>Valable du 01/04 au 31/05/2027</li>
       <li>Usage unique · paiement normal</li>
     </ul>

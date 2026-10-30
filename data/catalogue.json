@@ -37,12 +37,13 @@
       "optionsExclusives": ["pn", "prio"]
     },
     "online": {
-      "tva": 0.2,
+      "tva": 0.1,
       "tarifs": [
-        { "id": "online-normal", "label": "Online Normal", "ht": 219, "ttc": 262.8 },
-        { "id": "online-early-bird", "label": "Online Early Bird", "ht": 189, "ttc": 226.8 }
+        { "id": "online-normal", "label": "Online Normal", "ht": 219 },
+        { "id": "online-early-bird", "label": "Online Early Bird", "ht": 189 }
       ],
-      "hypotheses": "TVA déduite des montants fournis (262,80 / 219 = 1,20). À confirmer. Contribution supposée incluse."
+      "contributionEnvironnementale": false,
+      "hypotheses": "TVA 10 % comme toutes les tarifs Marché; TTC calculé depuis le HT. Les anciens TTC fournis (262,80 / 226,80) correspondaient à 20 %."
     }
   },
   "films": {
