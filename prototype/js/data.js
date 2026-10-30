@@ -42,6 +42,7 @@ const GROUPS = {
 };
 const targetLabel = t => GROUPS[t] || (P[t] ? P[t].label : t);
 const matches = (t, key) => {
+  if (!key || !P[key]) return false;
   if (t === key) return true;
   if (!t.endsWith('*')) return false;
   const p = P[key];

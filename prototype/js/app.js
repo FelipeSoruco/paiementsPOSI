@@ -165,7 +165,7 @@ function openAssign(code) {
 }
 function applyCode() {
   const v = (document.getElementById('promo').value || '').trim().toUpperCase();
-  const fail = text => { ui.promoMsg = { ok: false, text }; render(); };
+  const fail = text => { ui.promoMsg = { ok: false, text }; render(); toast(text); };
   if (!v) return fail('Saisissez un code.');
   const c = S.codes.find(x => x.code === v);
   if (!c) return fail('Code inconnu.');

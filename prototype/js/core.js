@@ -74,8 +74,8 @@ function expandLines() {
 }
 
 function eligibleLines(c, lines) {
-  return lines.filter(l => l.ctx === c.ctx && matches(c.target || '', l.key) &&
-    (c.effect === 'none' ? l.kind === 'tarif' : l.kind !== 'contrib'));
+  return lines.filter(l => l.kind !== 'contrib' && l.ctx === c.ctx && matches(c.target || '', l.key) &&
+    (c.effect !== 'none' || l.kind === 'tarif'));
 }
 
 function priceCart() {
