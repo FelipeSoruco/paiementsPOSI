@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Création de codes promo – maquette</title>
+<title>Création de codes promo – maquette v2</title>
 <style>
   :root{
     --bg:#f4f5f7; --card:#fff; --ink:#1b1f2a; --muted:#6b7280; --line:#e3e6ec;
@@ -19,37 +19,35 @@
   .sub{color:var(--muted);margin:0 0 16px}
   .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin-bottom:16px}
   .card h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 14px;display:flex;justify-content:space-between;align-items:center}
+  .card h2 em{font-style:normal;text-transform:none;letter-spacing:0}
   label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
-  .f,.sel{width:100%;border:1px solid #cfd4dc;border-radius:7px;padding:8px 10px;background:#fff;font:inherit;color:var(--ink)}
-  .sel::after{content:""}
+  .f,.sel{width:100%;border:1px solid #cfd4dc;border-radius:7px;padding:8px 10px;background:#fff}
   .grid{display:grid;gap:12px}
   .g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr 1fr 1fr}.g4{grid-template-columns:repeat(4,1fr)}
-  .ctx{display:flex;flex-wrap:wrap;gap:8px}
+  .ctx{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
   .chip{border:1px solid #cfd4dc;border-radius:999px;padding:5px 12px;font-size:13px;background:#fff}
   .chip.on{background:var(--brand);border-color:var(--brand);color:#fff}
-  .chip.grp{background:#eef1f6;border-style:dashed;color:var(--muted)}
-  .effect{border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;padding:14px 16px;margin-bottom:12px;background:#fcfcfd}
-  .effect.free{border-left-color:var(--ok)}
-  .effect.svc{border-left-color:#5b6ee1}
-  .effect .t{display:flex;justify-content:space-between;font-weight:600;margin-bottom:10px}
-  .effect .t small{font-weight:400;color:var(--muted)}
-  .x{color:var(--muted);font-weight:400;cursor:pointer}
-  .add{display:flex;gap:8px;flex-wrap:wrap}
-  .btn{border:1px dashed #9aa3b2;border-radius:7px;padding:7px 12px;background:#fff;color:var(--brand);font:inherit;font-weight:600}
+  .lab{color:var(--muted);font-size:12px;margin-right:2px}
+  .eff{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px}
+  .opt{border:1px solid #cfd4dc;border-radius:9px;padding:10px 12px;background:#fff}
+  .opt b{display:block;font-size:13px}.opt small{color:var(--muted);font-size:11.5px;line-height:1.3;display:block;margin-top:2px}
+  .opt.on{border:2px solid var(--brand);background:#f1f5fb;padding:9px 11px}
+  .panel{border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;padding:14px 16px;background:#fcfcfd}
+  .seg{display:inline-flex;border:1px solid #cfd4dc;border-radius:7px;overflow:hidden}
+  .seg span{padding:8px 12px;background:#fff}.seg span.on{background:var(--brand);color:#fff}
+  .note{background:var(--warnbg);color:var(--warn);border-radius:7px;padding:8px 10px;font-size:12px;margin-top:12px}
   .tog{display:flex;align-items:center;gap:10px;padding:8px 0}
   .sw{width:34px;height:20px;border-radius:20px;background:#cfd4dc;position:relative;flex:none}
   .sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff}
   .sw.on{background:var(--ok)}.sw.on::after{left:16px}
   .tog small{color:var(--muted);display:block}
-  .note{background:var(--warnbg);color:var(--warn);border-radius:7px;padding:8px 10px;font-size:12px;margin-top:8px}
   aside .card{position:sticky;top:16px}
   .sum{background:#f7f3ea;border:1px solid #eadfc4;border-radius:8px;padding:12px 14px;font-size:13px}
-  .sum li{margin:4px 0}
-  ul{margin:0;padding-left:18px}
+  ul{margin:0;padding-left:18px}li{margin:4px 0}
   .tag{display:inline-block;background:var(--okbg);color:var(--ok);border-radius:5px;padding:1px 7px;font-size:11px;font-weight:600}
   .actions{display:flex;justify-content:flex-end;gap:10px;margin-top:6px}
-  .b1{background:var(--brand);color:#fff;border:0;border-radius:8px;padding:10px 20px;font:inherit;font-weight:600}
-  .b2{background:#fff;border:1px solid #cfd4dc;border-radius:8px;padding:10px 18px;font:inherit}
+  .b1{background:var(--brand);color:#fff;border-radius:8px;padding:10px 20px;font-weight:600}
+  .b2{background:#fff;border:1px solid #cfd4dc;border-radius:8px;padding:10px 18px}
   .codes{font-family:ui-monospace,Consolas,monospace;font-size:12px;color:var(--muted);margin-top:10px}
 </style>
 </head>
@@ -58,66 +56,46 @@
 <div class="wrap">
 <main>
   <h1>Créer des codes promo</h1>
-  <p class="sub">Un code = un ou plusieurs effets, chacun avec sa cible claire.</p>
+  <p class="sub">Un code = un seul effet. Le paiement différé est la seule option cumulable.</p>
 
   <section class="card">
-    <h2>1 · Modèle <span style="text-transform:none;letter-spacing:0">remplit les champs ci-dessous</span></h2>
+    <h2>1 · Modèle <em>pré-remplit tout le formulaire</em></h2>
     <div class="grid g2">
-      <div><label>Modèle de code</label><div class="sel">Marché – 3 accréditations offertes ▾</div></div>
-      <div><label>Nom interne</label><div class="f">Invités Marché 2027</div></div>
+      <div><label>Modèle de code</label><div class="sel">Marché – réduction 100 € / Tardif ▾</div></div>
+      <div><label>Nom interne</label><div class="f">Remise Marché Tardif 2027</div></div>
     </div>
   </section>
 
   <section class="card">
-    <h2>2 · Contexte <span style="text-transform:none;letter-spacing:0">où le code est valable</span></h2>
+    <h2>2 · Contexte <em>un seul choix</em></h2>
     <div class="ctx">
-      <span class="chip grp">Accréditations (tous)</span>
+      <span class="lab">Accréditations :</span>
       <span class="chip">J</span><span class="chip">C</span><span class="chip">P</span><span class="chip">A</span><span class="chip">D</span><span class="chip">F</span>
-      <span class="chip on">M · Marché</span>
-      <span class="chip grp">|</span>
+      <span class="chip on">M · Marché</span><span class="chip">Online</span>
+      <span class="lab" style="margin-left:10px">Autres :</span>
       <span class="chip">Film</span><span class="chip">Stand</span>
     </div>
   </section>
 
   <section class="card">
-    <h2>3 · Effets du code</h2>
-
-    <div class="effect free">
-      <div class="t"><span>Accréditations gratuites <small>(tarif + contribution exonérée)</small></span><span class="x">✕</span></div>
-      <div class="grid g3">
-        <div><label>Nombre Onsite</label><div class="f">3</div></div>
-        <div><label>Nombre Online</label><div class="f">0</div></div>
-        <div><label>Nombre Producers Network</label><div class="f">0</div></div>
-      </div>
+    <h2>3 · Effet du code <em>un seul</em></h2>
+    <div class="eff">
+      <div class="opt on"><b>Réduction</b><small>€ HT ou % par produit</small></div>
+      <div class="opt"><b>Montant fixe</b><small>Prix imposé par produit</small></div>
+      <div class="opt"><b>Produit gratuit</b><small>Onsite, Online ou PN</small></div>
+      <div class="opt"><b>Contribution seule</b><small>Ne paie que les 24 €</small></div>
+      <div class="opt"><b>Services</b><small>Ajoute des services (1 de chaque)</small></div>
     </div>
-
-    <div class="effect">
-      <div class="t"><span>Réduction <small>(la contribution environnementale n'est jamais réduite)</small></span><span class="x">✕</span></div>
+    <div class="panel">
       <div class="grid g4">
-        <div><label>Type</label><div class="sel">Montant € HT ▾</div></div>
-        <div><label>Valeur</label><div class="f">100,00</div></div>
-        <div><label>S'applique à</label><div class="sel">Produit ▾</div></div>
-        <div><label>Produit</label><div class="sel">M · Tardif ▾</div></div>
+        <div><label>Type</label><div class="seg"><span class="on">€ HT</span><span>%</span></div></div>
+        <div><label>Valeur par produit</label><div class="f">100,00 €</div></div>
+        <div><label>Produit visé</label><div class="sel">M · Tardif ▾</div></div>
+        <div><label>Nombre de produits (quota)</label><div class="f">4</div></div>
       </div>
-      <div class="grid g4" style="margin-top:10px">
-        <div><label>Quota (nb de produits)</label><div class="f">4</div></div>
-        <div><label>Montant par</label><div class="sel">Produit ▾</div></div>
-      </div>
+      <div class="note">La contribution environnementale n'est jamais réduite. Seule une gratuité ou « Contribution seule » peut l'exonérer.</div>
     </div>
-
-    <div class="effect svc">
-      <div class="t"><span>Service ajouté <small>(accréditations uniquement)</small></span><span class="x">✕</span></div>
-      <div class="grid g2">
-        <div><label>Service</label><div class="sel">Accès salon VIP ▾</div></div>
-        <div><label>Quota</label><div class="f">3</div></div>
-      </div>
-    </div>
-
-    <div class="add">
-      <span class="btn">＋ Réduction</span><span class="btn">＋ Montant fixe</span><span class="btn">＋ Gratuités</span>
-      <span class="btn">＋ Tarif contribution seule</span><span class="btn">＋ Service</span>
-    </div>
-    <div class="note">Montant fixe = ce que la personne paie pour le produit ciblé, avec son quota.</div>
+    <div class="tog" style="margin-top:10px"><div class="sw"></div><div>Paiement différé<small>La facture est créée mais reste impayée.</small></div></div>
   </section>
 
   <section class="card">
@@ -132,7 +110,6 @@
       <div><label>Réservé à la société (optionnel)</label><div class="sel">Aucune restriction ▾</div></div>
     </div>
     <div class="tog" style="margin-top:6px"><div class="sw on"></div><div>Utilisation unique<small>Le code est brûlé dès la première utilisation, même partielle.</small></div></div>
-    <div class="tog"><div class="sw"></div><div>Paiement différé<small>La facture est créée mais reste impayée.</small></div></div>
   </section>
 
   <div class="actions"><span class="b2">Annuler</span><span class="b1">Générer 5 codes</span></div>
@@ -143,13 +120,12 @@
     <h2>Aperçu en direct</h2>
     <div class="sum">
       <b>Ligne de facture (auto)</b><br>
-      3 accréditations Onsite gratuites pour le Marché · 100 € HT de réduction sur 4 accréditations M Tardif · 3 services « Accès salon VIP ».
+      Réduction de 100 € HT sur 4 accréditations Marché Tardif.
     </div>
     <p style="margin:14px 0 6px;font-weight:600">Ce que fera le code</p>
     <ul>
-      <li><span class="tag">Exonéré</span> 3 × (tarif M + contribution 24 €)</li>
-      <li>–100 € HT × 4 sur M Tardif, contribution <b>non</b> réduite</li>
-      <li>+3 services offerts</li>
+      <li>–100 € HT sur jusqu'à <b>4</b> accréditations M Tardif, à choisir dans le panier</li>
+      <li>Contribution 24 € <b>non</b> réduite</li>
       <li>Valable du 01/04 au 31/05/2027</li>
       <li>Usage unique · paiement normal</li>
     </ul>

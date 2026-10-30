@@ -1,0 +1,373 @@
+{
+  "note": "Un seul exemplaire de chaque service par accréditation; plusieurs services différents possibles. Réservé aux accréditations.",
+  "services": [
+    {
+      "id": "acces-bistingo",
+      "label": "Accès Bistingo"
+    },
+    {
+      "id": "acces-couloir-technique",
+      "label": "Accès couloir technique"
+    },
+    {
+      "id": "acces-protocole",
+      "label": "Accès protocole"
+    },
+    {
+      "id": "acces-rapide-controle-vigipirate",
+      "label": "Accès rapide contrôle vigipirate"
+    },
+    {
+      "id": "acces-toutes-zones",
+      "label": "Accès toutes zones"
+    },
+    {
+      "id": "accompagnant-principal-film",
+      "label": "Accompagnant principal film"
+    },
+    {
+      "id": "accompagnant-secondaire-film",
+      "label": "Accompagnant secondaire film"
+    },
+    {
+      "id": "accreditation-online",
+      "label": "Accréditation Online"
+    },
+    {
+      "id": "badge-a-imprimer-sur-paris",
+      "label": "Badge à imprimer sur Paris"
+    },
+    {
+      "id": "badge-festival-hors-stand",
+      "label": "Badge Festival Hors Stand"
+    },
+    {
+      "id": "badge-festival-viastand",
+      "label": "Badge Festival viaStand"
+    },
+    {
+      "id": "badge-prioritaire-gratuit",
+      "label": "Badge prioritaire gratuit"
+    },
+    {
+      "id": "badge-prioritaire-payant",
+      "label": "Badge prioritaire payant"
+    },
+    {
+      "id": "billetterie-avec-droits-etendus",
+      "label": "Billetterie avec droits étendus"
+    },
+    {
+      "id": "billetterie-bloquee",
+      "label": "Billetterie bloquée"
+    },
+    {
+      "id": "billetterie-directe",
+      "label": "Billetterie directe"
+    },
+    {
+      "id": "bistro-de-lerins",
+      "label": "Bistro de Lérins"
+    },
+    {
+      "id": "buyer-cinando",
+      "label": "Buyer Cinando"
+    },
+    {
+      "id": "casier-de-presse",
+      "label": "Casier de presse"
+    },
+    {
+      "id": "cinando",
+      "label": "Cinando"
+    },
+    {
+      "id": "coupon-aeroport",
+      "label": "Coupon aéroport"
+    },
+    {
+      "id": "decouverte-cinephiles",
+      "label": "Découverte Cinéphiles"
+    },
+    {
+      "id": "demande-de-badge-pn",
+      "label": "Demande de badge PN"
+    },
+    {
+      "id": "demande-de-badge-pw",
+      "label": "Demande de badge PW"
+    },
+    {
+      "id": "exposant",
+      "label": "Exposant"
+    },
+    {
+      "id": "film-sous-selfkit",
+      "label": "Film sous Selfkit"
+    },
+    {
+      "id": "invite",
+      "label": "Invité"
+    },
+    {
+      "id": "invite-marche",
+      "label": "Invité Marché"
+    },
+    {
+      "id": "invites-ge",
+      "label": "Invités GE"
+    },
+    {
+      "id": "jury-autre-prix-du-son",
+      "label": "Jury autre Prix du Son"
+    },
+    {
+      "id": "jury-autre-prix-oeil-d-or",
+      "label": "Jury autre Prix Oeil d'or"
+    },
+    {
+      "id": "jury-camera-d-or",
+      "label": "Jury Caméra d'Or"
+    },
+    {
+      "id": "jury-cm-cinef",
+      "label": "Jury CM/CINEF"
+    },
+    {
+      "id": "jury-francois-chalais",
+      "label": "Jury François Chalais"
+    },
+    {
+      "id": "jury-grand",
+      "label": "Jury GRAND"
+    },
+    {
+      "id": "jury-queer-palm",
+      "label": "Jury Queer Palm"
+    },
+    {
+      "id": "jury-ucr",
+      "label": "Jury UCR"
+    },
+    {
+      "id": "ne-pas-afficher-le-mail-dans-le-guide",
+      "label": "Ne pas afficher le mail dans le guide"
+    },
+    {
+      "id": "ne-pas-afficher-le-telephone-dans-le-guide",
+      "label": "Ne pas afficher le téléphone dans le guide"
+    },
+    {
+      "id": "ne-pas-inclure-dans-les-publications",
+      "label": "Ne pas inclure dans les publications"
+    },
+    {
+      "id": "ne-pas-inclure-dans-les-statistiques",
+      "label": "Ne pas inclure dans les statistiques"
+    },
+    {
+      "id": "ne-pas-recevoir-la-newsletter",
+      "label": "Ne pas recevoir la newsletter"
+    },
+    {
+      "id": "newsletter-billetterie",
+      "label": "Newsletter Billetterie"
+    },
+    {
+      "id": "no-borne",
+      "label": "No Borne"
+    },
+    {
+      "id": "non-envoi-de-campagne",
+      "label": "Non envoi de campagne"
+    },
+    {
+      "id": "organisation",
+      "label": "Organisation"
+    },
+    {
+      "id": "package-croisette-1",
+      "label": "Package Croisette 1"
+    },
+    {
+      "id": "package-croisette-2",
+      "label": "Package Croisette 2"
+    },
+    {
+      "id": "package-croisette-3",
+      "label": "Package Croisette 3"
+    },
+    {
+      "id": "package-croisette-6",
+      "label": "Package Croisette 6"
+    },
+    {
+      "id": "partenaires",
+      "label": "Partenaires"
+    },
+    {
+      "id": "pas-bistro-de-lerins",
+      "label": "Pas Bistro de Lérins"
+    },
+    {
+      "id": "pas-de-bande-jaune",
+      "label": "Pas de Bande Jaune"
+    },
+    {
+      "id": "pas-plage-des-palmes-festival-de-cinema",
+      "label": "Pas Plage des Palmes Festival de Cinéma"
+    },
+    {
+      "id": "personne-non-envoyee-a-cinando",
+      "label": "Personne non envoyée à Cinando"
+    },
+    {
+      "id": "plage-des-palmes-festival-de-cinema",
+      "label": "Plage des Palmes Festival de Cinéma"
+    },
+    {
+      "id": "platinum",
+      "label": "Platinum"
+    },
+    {
+      "id": "pmr-1",
+      "label": "PMR+1"
+    },
+    {
+      "id": "pn-gratuit",
+      "label": "PN Gratuit"
+    },
+    {
+      "id": "presse-marche",
+      "label": "Presse Marché"
+    },
+    {
+      "id": "presse-niveau-1-ps",
+      "label": "Presse Niveau 1 (PS)"
+    },
+    {
+      "id": "presse-niveau-2-pqp",
+      "label": "Presse Niveau 2 (PQP)"
+    },
+    {
+      "id": "presse-niveau-3-pq",
+      "label": "Presse Niveau 3 (PQ)"
+    },
+    {
+      "id": "presse-niveau-4-pr",
+      "label": "Presse Niveau 4 (PR)"
+    },
+    {
+      "id": "presse-niveau-5-pb",
+      "label": "Presse Niveau 5 (PB)"
+    },
+    {
+      "id": "presse-pass-temporaire",
+      "label": "Presse Pass Temporaire"
+    },
+    {
+      "id": "presse-photographe",
+      "label": "Presse photographe"
+    },
+    {
+      "id": "presse-photographe-prioritaire",
+      "label": "Presse photographe prioritaire"
+    },
+    {
+      "id": "presse-technicien",
+      "label": "Presse Technicien"
+    },
+    {
+      "id": "producer-s-network",
+      "label": "Producer's Network"
+    },
+    {
+      "id": "producer-s-workshop",
+      "label": "Producer's Workshop"
+    },
+    {
+      "id": "programme-next",
+      "label": "Programme Next"
+    },
+    {
+      "id": "programme-pass-conference",
+      "label": "Programme Pass Conférence"
+    },
+    {
+      "id": "pw-gratuit",
+      "label": "PW Gratuit"
+    },
+    {
+      "id": "refus-pn",
+      "label": "Refus PN"
+    },
+    {
+      "id": "reservation-billetterie",
+      "label": "Réservation billetterie"
+    },
+    {
+      "id": "sac-3-jours-a-cannes",
+      "label": "Sac 3 Jours à Cannes"
+    },
+    {
+      "id": "sac-marche",
+      "label": "Sac Marché"
+    },
+    {
+      "id": "salle-presse",
+      "label": "Salle Presse"
+    },
+    {
+      "id": "service-de-nuit",
+      "label": "Service de Nuit"
+    },
+    {
+      "id": "short-film-corner-only",
+      "label": "Short Film Corner only"
+    },
+    {
+      "id": "sur-badge-acces-a-la-zone-stockage-de-la-gare-maritime",
+      "label": "Sur badge : Accès à la zone stockage de la gare maritime"
+    },
+    {
+      "id": "sur-badge-acces-au-parcours-presse",
+      "label": "Sur badge : Accès au parcours Presse"
+    },
+    {
+      "id": "sur-badge-acces-aux-diners-et-a-l-agora",
+      "label": "Sur badge : Accès aux diners et à l'agora"
+    },
+    {
+      "id": "sur-badge-acces-aux-salles-festival",
+      "label": "Sur badge : Accès aux salles festival"
+    },
+    {
+      "id": "sur-badge-acces-coulisses",
+      "label": "Sur badge : Accès coulisses"
+    },
+    {
+      "id": "sur-badge-acces-parvis-et-marches",
+      "label": "Sur badge : Accès parvis et marches"
+    },
+    {
+      "id": "sur-badge-permanent-zones-non-restreintes",
+      "label": "Sur badge : Permanent Zones non restreintes"
+    },
+    {
+      "id": "sur-badge-plage-des-palmes",
+      "label": "Sur badge : Plage des Palmes"
+    },
+    {
+      "id": "talent-corner-program",
+      "label": "Talent Corner Program"
+    },
+    {
+      "id": "video-library-cannes-court-metrage",
+      "label": "Video Library Cannes Court Métrage"
+    },
+    {
+      "id": "wifi",
+      "label": "Wifi"
+    }
+  ]
+}

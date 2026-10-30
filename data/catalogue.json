@@ -1,0 +1,69 @@
+{
+  "note": "Prix de démonstration (HT), inspirés des tarifs de l'an dernier. Modifiables dans l'administration du prototype.",
+  "contributionEnvironnementale": { "ht": 20, "tva": 0.2, "ttc": 24, "reductible": false, "exonerable": true },
+  "accreditations": {
+    "simples": [
+      { "emetteur": "J", "label": "3 Huracán / Jeunes" },
+      { "emetteur": "C", "label": "Cinéphil" },
+      { "emetteur": "P", "label": "Presse" },
+      { "emetteur": "A", "label": "Presse audiovisuelle" },
+      { "emetteur": "D", "label": "Département Film" }
+    ],
+    "simplesNote": "Seule la contribution environnementale est facturée (20 € HT, TVA 20 %).",
+    "F": {
+      "normal": { "lignes": ["contribution"] },
+      "tardive": { "lignes": ["contribution", { "label": "Supplément tardive", "ttc": 200, "tva": 0.1 }] }
+    },
+    "M": {
+      "tva": 0.1,
+      "tarifs": [
+        { "id": "normal", "label": "Normal", "ht": 509, "inclus": 1 },
+        { "id": "early-bird", "label": "Early Bird", "ht": 439, "inclus": 1 },
+        { "id": "tardif", "label": "Tardif", "ht": 609, "inclus": 1 },
+        { "id": "pc1-eb", "label": "PC 1 EB", "ht": 1480, "inclus": 1 },
+        { "id": "pc1-n", "label": "PC 1 N", "ht": 1680, "inclus": 1 },
+        { "id": "pc2-eb", "label": "PC 2 EB", "ht": 1910, "inclus": 2 },
+        { "id": "pc2-n", "label": "PC 2 N", "ht": 2060, "inclus": 2 },
+        { "id": "pc3-eb", "label": "PC 3 EB", "ht": 2690, "inclus": 3 },
+        { "id": "pc3-n", "label": "PC 3 N", "ht": 3040, "inclus": 3 },
+        { "id": "pc6-eb", "label": "PC 6 EB", "ht": 5580, "inclus": 6 },
+        { "id": "pc6-n", "label": "PC 6 N", "ht": 6080, "inclus": 6 }
+      ],
+      "contributionParAccreditation": true,
+      "options": [
+        { "id": "pn", "label": "PN (Producers Network)", "ht": 89, "tva": 0.1 },
+        { "id": "prio", "label": "PRIO", "ht": 250, "tva": 0.1 }
+      ],
+      "optionsExclusives": ["pn", "prio"]
+    },
+    "online": {
+      "tva": 0.2,
+      "tarifs": [
+        { "id": "online-normal", "label": "Online Normal", "ht": 219, "ttc": 262.8 },
+        { "id": "online-early-bird", "label": "Online Early Bird", "ht": 189, "ttc": 226.8 }
+      ],
+      "hypotheses": "TVA déduite des montants fournis (262,80 / 219 = 1,20). À confirmer. Contribution supposée incluse."
+    }
+  },
+  "films": {
+    "tva": 0.2,
+    "lignes": [
+      { "id": "frais-inscription", "label": "Frais d'inscription", "ht": 50, "obligatoire": true },
+      { "id": "upload-en-ligne", "label": "Upload en ligne", "ht": 300, "optionnel": true },
+      { "id": "upload-dcp", "label": "Upload DCP (exemple)", "ht": 400, "optionnel": true },
+      { "id": "upload-physique", "label": "Livraison physique (exemple)", "ht": 450, "optionnel": true }
+    ]
+  },
+  "stand": {
+    "tva": 0.2,
+    "produits": [
+      { "id": "table", "label": "Table", "ht": 40 },
+      { "id": "chaise", "label": "Chaise", "ht": 15 },
+      { "id": "installation", "label": "Installation du stand", "ht": 250 },
+      { "id": "prise-electrique", "label": "Prise électrique", "ht": 60 },
+      { "id": "spot", "label": "Spot d'éclairage", "ht": 35 },
+      { "id": "comptoir", "label": "Comptoir", "ht": 90 },
+      { "id": "nettoyage", "label": "Nettoyage", "ht": 80 }
+    ]
+  }
+}
