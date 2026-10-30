@@ -45,9 +45,12 @@ const needsTargets = c => c.effect !== 'none' || (c.services && c.services.lengt
 function expandLines() {
   const L = [];
   S.cart.forEach(it => {
+    const start = L.length;
+    let gt = '', gs = '';
     if (it.type === 'acc') {
       const p = P[it.key];
       const owner = it.seats.map(s => s.name).join(', ');
+      gt = p.label; gs = (p.pack ? `${it.seats.length}/${p.seats} attribué(s) · ` : '') + owner;
       L.push({ id: it.id + ':t', item: it.id, key: it.key, ctx: p.ctx, kind: 'tarif', label: p.label, owner, ht: p.ht, vat: p.vat, qty: 1 });
       it.seats.forEach((s, i) => {
         if (s.opt) {
@@ -57,12 +60,15 @@ function expandLines() {
       });
       if (p.contrib) L.push({ id: it.id + ':c', item: it.id, parent: it.id + ':t', ctx: p.ctx, kind: 'contrib', label: 'Contribution environnementale', owner, ht: CONTRIB.ht, vat: CONTRIB.vat, qty: p.contrib });
     } else if (it.type === 'film') {
+      gt = 'Film'; gs = it.title;
       L.push({ id: it.id + ':f', item: it.id, key: 'film:fee', ctx: 'FILM', kind: 'tarif', label: P['film:fee'].label, owner: it.title, ht: 50, vat: 0.2, qty: 1 });
       if (it.upload) L.push({ id: it.id + ':u', item: it.id, key: it.upload, ctx: 'FILM', kind: 'tarif', label: P[it.upload].label, owner: it.title, ht: P[it.upload].ht, vat: 0.2, qty: 1 });
     } else if (it.type === 'stand') {
       const p = P[it.key];
+      gt = p.label;
       L.push({ id: it.id + ':s', item: it.id, key: it.key, ctx: 'STAND', kind: 'tarif', label: p.label, owner: '', ht: p.ht, vat: p.vat, qty: it.qty });
     }
+    for (let i = start; i < L.length; i++) { L[i].gt = gt; L[i].gs = gs; }
   });
   return L;
 }

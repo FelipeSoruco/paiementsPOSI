@@ -47,7 +47,7 @@ details{margin-top:10px;font-size:12px;color:var(--mut)}summary{cursor:pointer}.
 .chip{border:1px solid #cfd4dc;border-radius:999px;padding:4px 11px;background:#fff;font:inherit;font-size:12px;cursor:pointer;display:inline-flex;gap:6px;align-items:center;color:var(--ink)}.chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
 .alist{margin-top:14px;display:grid;gap:8px}.acode{display:flex;justify-content:space-between;gap:12px;background:#fff;border-left:4px solid var(--teal);border-radius:6px;padding:10px 14px}.acode span{color:var(--mut)}.acode small{display:block;color:var(--navy)}
 table{border-collapse:collapse;width:100%}.lines th{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);font-weight:600;text-align:left;padding:8px 10px}
-.lines td{padding:9px 10px;border-top:1px solid var(--line);vertical-align:top}.lines tbody tr:nth-child(odd){background:#f7f8f9}.lines tr.contrib td{color:#4b5160;font-size:13px}
+.lines td{padding:9px 10px;border-top:1px solid var(--line);vertical-align:top}.lines tbody.grp tr{background:#fff}.lines .ghead td{background:#eef3f6;border-top:2px solid #cfdada}.lines tbody.grp:not(.single) td:first-child{border-left:4px solid var(--teal)}.lines tbody.grp:not(.single) tr:not(.ghead) td:first-child{padding-left:24px}.lines tbody.single tr{background:#f7f8f9}.lines tr.contrib td{color:#4b5160;font-size:13px}
 .lines small{color:var(--mut)}.ind{color:var(--mut)}.r{text-align:right}.c{text-align:center}
 .tag{display:inline-block;background:#e5e8fb;color:var(--navy);border-radius:4px;padding:1px 7px;font-size:11px;font-weight:700;margin-left:6px}.tag.ok{background:var(--okbg);color:var(--ok)}.tag.ko{background:#fdecea;color:var(--red)}
 .svc{display:inline-block;background:#fff4d6;color:#7a5200;border-radius:4px;padding:1px 6px;font-size:11px;margin:2px 4px 0 0}
@@ -84,3 +84,5 @@ table{border-collapse:collapse;width:100%}.lines th{font-size:11px;letter-spacin
 @media (max-width:860px){.two,.creator,.paygrid{grid-template-columns:1fr}.effs{grid-template-columns:1fr 1fr}.grid4{grid-template-columns:1fr 1fr}.svclist{columns:1}.band{grid-template-columns:1fr}.stepper{overflow:auto}.top{flex-wrap:wrap;padding:12px 16px}.side,.sticky{position:static}}
 @media print{.top,.proto-note,.stepper,.nav{display:none}}
 .panel+.fld{margin-top:14px}
+
+.rand{display:flex;gap:10px;align-items:center;margin-bottom:14px}.rand span{color:var(--mut);font-size:12px}.rand input{width:70px}

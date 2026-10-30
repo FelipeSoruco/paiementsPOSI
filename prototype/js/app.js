@@ -29,17 +29,26 @@ function stepper(i) {
 
 /* ---------- Tableaux et totaux ---------- */
 function linesTable(t) {
-  const rows = t.lines.map(l => {
+  const groups = [], idx = {};
+  t.lines.forEach(l => { if (!(l.item in idx)) { idx[l.item] = groups.length; groups.push([]); } groups[idx[l.item]].push(l); });
+  const row = (l, multi) => {
     if (l.kind === 'contrib') {
       return `<tr class="contrib"><td><span class="ind">↳</span> Contribution environnementale <small>non réductible · exonérable</small> ${l.exo ? '<span class="tag ok">Exonérée</span>' : ''}</td>
         <td class="r">${eur(l.ht)}</td><td class="c">${l.qty}</td><td class="r">${l.disc ? '−' + eur(l.disc) : ''}</td><td class="r">${eur(l.net)}</td></tr>`;
     }
-    return `<tr><td><b>${esc(l.label)}</b>${l.owner ? `<br><small>${esc(l.owner)}</small>` : ''}
+    const title = multi && l.kind === 'tarif' && l.ctx !== 'FILM' ? 'Tarif' : l.label;
+    const owner = !multi || l.kind === 'option' ? l.owner : '';
+    return `<tr><td><b>${esc(title)}</b>${owner ? `<br><small>${esc(owner)}</small>` : ''}
       ${l.codeId ? `<span class="tag">${esc(l.codeId)}</span>` : ''}${l.free ? '<span class="tag ok">Gratuit</span>' : ''}
       ${(l.services || []).map(s => `<span class="svc">${esc(s)}</span>`).join('')}</td>
       <td class="r">${eur(l.ht)}</td><td class="c">${l.qty}</td><td class="r">${l.disc ? '−' + eur(l.disc) : ''}</td><td class="r">${eur(l.net)}</td></tr>`;
+  };
+  const body = groups.map(g => {
+    if (g.length === 1) return `<tbody class="grp single">${row(g[0], false)}</tbody>`;
+    const sub = r2(g.reduce((n, l) => n + l.net, 0));
+    return `<tbody class="grp"><tr class="ghead"><td colspan="4"><b>${esc(g[0].gt)}</b> <small>${esc(g[0].gs || '')}</small></td><td class="r"><b>${eur(sub)}</b> HT</td></tr>${g.map(l => row(l, true)).join('')}</tbody>`;
   }).join('');
-  return `<table class="lines"><thead><tr><th>Désignation</th><th class="r">Prix unitaire HT</th><th class="c">Qté</th><th class="r">Remise HT</th><th class="r">Prix HT</th></tr></thead><tbody>${rows}</tbody></table>`;
+  return `<table class="lines"><thead><tr><th>Désignation</th><th class="r">Prix unitaire HT</th><th class="c">Qté</th><th class="r">Remise HT</th><th class="r">Prix HT</th></tr></thead>${body}</table>`;
 }
 function totalsBox(t) {
   const vat = Object.keys(t.vat).sort().map(r => `<tr><td>TVA ${Math.round(r * 100)} %</td><td>${eur(t.vat[r])}</td></tr>`).join('');
@@ -79,8 +88,9 @@ function cartPanel() {
       const p = P[it.key];
       const seats = it.seats.map((s, i) => `<div class="seat"><input data-chg="seatname" data-id="${it.id}" data-i="${i}" value="${esc(s.name)}">
         <button class="ic" data-act="dice" data-id="${it.id}" data-i="${i}" title="Nouveau nom">⟳</button>
-        ${p.ctx === 'M' ? `<select data-chg="seatopt" data-id="${it.id}" data-i="${i}"><option value="">–</option><option value="pn" ${s.opt === 'pn' ? 'selected' : ''}>PN</option><option value="prio" ${s.opt === 'prio' ? 'selected' : ''}>PRIO</option></select>` : ''}</div>`).join('');
-      return `<div class="citem"><div class="ct"><b>${esc(p.label)}</b><button class="ic" data-act="rm" data-id="${it.id}">✕</button></div>${seats}</div>`;
+        ${p.pack && it.seats.length > 1 ? `<button class="ic" data-act="rm-seat" data-id="${it.id}" data-i="${i}" title="Retirer cette personne">✕</button>` : ''}${p.ctx === 'M' ? `<select data-chg="seatopt" data-id="${it.id}" data-i="${i}"><option value="">–</option><option value="pn" ${s.opt === 'pn' ? 'selected' : ''}>PN</option><option value="prio" ${s.opt === 'prio' ? 'selected' : ''}>PRIO</option></select>` : ''}</div>`).join('');
+      const more = p.pack && it.seats.length < p.seats ? `<button class="link" data-act="add-seat" data-id="${it.id}">＋ Ajouter une personne (${it.seats.length}/${p.seats})</button>` : p.pack ? `<small class="hint">${p.seats}/${p.seats} attribué(s)</small>` : '';
+      return `<div class="citem"><div class="ct"><b>${esc(p.label)}</b><button class="ic" data-act="rm" data-id="${it.id}">✕</button></div>${seats}${more}</div>`;
     }
     if (it.type === 'film') {
       return `<div class="citem"><div class="ct"><b>Film</b><button class="ic" data-act="rm" data-id="${it.id}">✕</button></div>
@@ -98,7 +108,9 @@ function cartPanel() {
 }
 function viewProducts() {
   const tabs = [['acc', 'Accréditations'], ['film', 'Films'], ['stand', 'Stand']].map(([k, l]) => `<button class="tab ${ui.tab === k ? 'on' : ''}" data-act="tab" data-t="${k}">${l}</button>`).join('');
-  return `<div class="two"><section><h1>Sélection des produits</h1><div class="tabs">${tabs}</div>
+  return `<div class="two"><section><h1>Sélection des produits</h1>
+    <div class="rand"><button class="btn ghost" data-act="random">🎲 Ajouter des produits au hasard</button><span>Quantité</span><input id="randn" type="number" min="1" max="30" value="5"></div>
+    <div class="tabs">${tabs}</div>
     ${ui.tab === 'acc' ? accCards() : ui.tab === 'film' ? filmCards() : standCards()}</section>${cartPanel()}</div>`;
 }
 

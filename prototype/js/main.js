@@ -41,7 +41,7 @@ const actions = {
     const key = card.dataset.key || card.querySelector('[name=key]').value;
     const opt = card.querySelector('[name=opt]')?.value || null;
     const n = Math.max(1, Math.min(50, +card.querySelector('[name=qty]').value || 1));
-    for (let i = 0; i < n; i++) S.cart.push({ id: uid(), type: 'acc', key, seats: Array.from({ length: P[key].seats }, () => ({ name: randName(), opt })) });
+    for (let i = 0; i < n; i++) S.cart.push({ id: uid(), type: 'acc', key, seats: Array.from({ length: P[key].pack ? 1 : P[key].seats }, () => ({ name: randName(), opt })) });
     save(); render(); toast(`${n} × ${P[key].label} ajouté${n > 1 ? 's' : ''}`);
   },
   'add-film': a => {
@@ -62,6 +62,22 @@ const actions = {
     if (!added) return toast('Choisissez une quantité.');
     save(); render(); toast('Produits stand ajoutés');
   },
+  random: () => {
+    const n = Math.max(1, Math.min(30, +document.getElementById('randn').value || 5));
+    const accKeys = Object.values(P).filter(p => p.kind === 'tarif' && ACC_CTX.includes(p.ctx)).map(p => p.key);
+    for (let i = 0; i < n; i++) {
+      const r = Math.random();
+      if (r < 0.7) {
+        const key = pick(accKeys), isM = P[key].ctx === 'M';
+        const opt = isM && Math.random() < 0.4 ? pick(['pn', 'prio']) : null;
+        S.cart.push({ id: uid(), type: 'acc', key, seats: [{ name: randName(), opt }] });
+      } else if (r < 0.85) S.cart.push({ id: uid(), type: 'film', title: randFilm(), upload: pick([null, 'film:upload-online', 'film:upload-dcp', 'film:upload-physique']) });
+      else S.cart.push({ id: uid(), type: 'stand', key: pick(Object.keys(P).filter(k => k.startsWith('stand:'))), qty: 1 + Math.floor(Math.random() * 4) });
+    }
+    save(); render(); toast(`${n} produit(s) ajouté(s) au hasard`);
+  },
+  'add-seat': a => { const it = cartItem(a.dataset.id); if (it.seats.length < P[it.key].seats) it.seats.push({ name: randName(), opt: null }); render(); },
+  'rm-seat': a => { const it = cartItem(a.dataset.id); if (it.seats.length > 1) it.seats.splice(+a.dataset.i, 1); render(); },
   rm: a => { S.cart = S.cart.filter(i => i.id !== a.dataset.id); render(); },
   'clear-cart': () => { S.cart = []; S.applied = []; render(); },
   dice: a => { cartItem(a.dataset.id).seats[+a.dataset.i].name = randName(); render(); },
