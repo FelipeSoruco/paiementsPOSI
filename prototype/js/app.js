@@ -28,27 +28,49 @@ function stepper(i) {
 }
 
 /* ---------- Tableaux et totaux ---------- */
+const SECTIONS = [['acc', 'Accréditations'], ['FILM', 'Films'], ['STAND', 'Stand']];
+const sectionOf = l => l.ctx === 'FILM' ? 'FILM' : l.ctx === 'STAND' ? 'STAND' : 'acc';
+const pct = v => Math.round(v * 100) + ' %';
+function orderTitle(t) {
+  const c = t.counts || {}, parts = [];
+  if (c.acc) parts.push(`${c.acc} accréditation${c.acc > 1 ? 's' : ''}`);
+  if (c.films) parts.push(`${c.films} film${c.films > 1 ? 's' : ''}`);
+  if (c.stand) parts.push(`${c.stand} article${c.stand > 1 ? 's' : ''} stand`);
+  return parts.join(' · ');
+}
 function linesTable(t) {
-  const groups = [], idx = {};
-  t.lines.forEach(l => { if (!(l.item in idx)) { idx[l.item] = groups.length; groups.push([]); } groups[idx[l.item]].push(l); });
+  const sum = ls => ({ ht: r2(ls.reduce((n, l) => n + l.net, 0)), vat: r2(ls.reduce((n, l) => n + l.vatAmt, 0)), ttc: r2(ls.reduce((n, l) => n + l.ttc, 0)) });
   const row = (l, multi) => {
+    const vatCells = `<td class="r">${pct(l.vat)}<br><small>${eur(l.vatAmt)}</small></td><td class="r">${eur(l.ttc)}</td>`;
     if (l.kind === 'contrib') {
       return `<tr class="contrib"><td><span class="ind">↳</span> Contribution environnementale <small>non réductible · exonérable</small> ${l.exo ? '<span class="tag ok">Exonérée</span>' : ''}</td>
-        <td class="r">${eur(l.ht)}</td><td class="c">${l.qty}</td><td class="r">${l.disc ? '−' + eur(l.disc) : ''}</td><td class="r">${eur(l.net)}</td></tr>`;
+        <td class="r">${eur(l.ht)}</td><td class="c">${l.qty}</td><td class="r">${l.disc ? '−' + eur(l.disc) : ''}</td><td class="r">${eur(l.net)}</td>${vatCells}</tr>`;
     }
     const title = multi && l.kind === 'tarif' && l.ctx !== 'FILM' ? 'Tarif' : l.label;
     const owner = !multi || l.kind === 'option' ? l.owner : '';
     return `<tr><td><b>${esc(title)}</b>${owner ? `<br><small>${esc(owner)}</small>` : ''}
       ${l.codeId ? `<span class="tag">${esc(l.codeId)}</span>` : ''}${l.free ? '<span class="tag ok">Gratuit</span>' : ''}
       ${(l.services || []).map(s => `<span class="svc">${esc(s)}</span>`).join('')}</td>
-      <td class="r">${eur(l.ht)}</td><td class="c">${l.qty}</td><td class="r">${l.disc ? '−' + eur(l.disc) : ''}</td><td class="r">${eur(l.net)}</td></tr>`;
+      <td class="r">${eur(l.ht)}</td><td class="c">${l.qty}</td><td class="r">${l.disc ? '−' + eur(l.disc) : ''}</td><td class="r">${eur(l.net)}</td>${vatCells}</tr>`;
   };
-  const body = groups.map(g => {
-    if (g.length === 1) return `<tbody class="grp single">${row(g[0], false)}</tbody>`;
-    const sub = r2(g.reduce((n, l) => n + l.net, 0));
-    return `<tbody class="grp"><tr class="ghead"><td colspan="4"><b>${esc(g[0].gt)}</b> <small>${esc(g[0].gs || '')}</small></td><td class="r"><b>${eur(sub)}</b> HT</td></tr>${g.map(l => row(l, true)).join('')}</tbody>`;
+  const groupsOf = lines => {
+    const groups = [], idx = {};
+    lines.forEach(l => { if (!(l.item in idx)) { idx[l.item] = groups.length; groups.push([]); } groups[idx[l.item]].push(l); });
+    return groups;
+  };
+  const sections = SECTIONS.map(([k, label]) => {
+    const ls = t.lines.filter(l => sectionOf(l) === k);
+    if (!ls.length) return '';
+    const st = sum(ls);
+    const head = `<tbody class="sec"><tr class="shead"><td colspan="4">${label}</td><td class="r">${eur(st.ht)}</td><td class="r">${eur(st.vat)}</td><td class="r">${eur(st.ttc)}</td></tr></tbody>`;
+    const body = groupsOf(ls).map(g => {
+      if (g.length === 1) return `<tbody class="grp single">${row(g[0], false)}</tbody>`;
+      const gs = sum(g);
+      return `<tbody class="grp"><tr class="ghead"><td colspan="4"><b>${esc(g[0].gt)}</b> <small>${esc(g[0].gs || '')}</small></td><td class="r"><b>${eur(gs.ht)}</b></td><td class="r">${eur(gs.vat)}</td><td class="r"><b>${eur(gs.ttc)}</b></td></tr>${g.map(l => row(l, true)).join('')}</tbody>`;
+    }).join('');
+    return head + body;
   }).join('');
-  return `<table class="lines"><thead><tr><th>Désignation</th><th class="r">Prix unitaire HT</th><th class="c">Qté</th><th class="r">Remise HT</th><th class="r">Prix HT</th></tr></thead>${body}</table>`;
+  return `<div class="tw"><table class="lines"><thead><tr><th>Désignation</th><th class="r">Prix unitaire HT</th><th class="c">Qté</th><th class="r">Remise HT</th><th class="r">Prix HT</th><th class="r">TVA</th><th class="r">Prix TTC</th></tr></thead>${sections}</table></div>`;
 }
 function totalsBox(t) {
   const vat = Object.keys(t.vat).sort().map(r => `<tr><td>TVA ${Math.round(r * 100)} %</td><td>${eur(t.vat[r])}</td></tr>`).join('');
@@ -126,7 +148,7 @@ function viewRecap() {
       <div>${needsTargets(c) ? `<button class="link" data-act="reassign" data-code="${esc(c.code)}">Modifier</button>` : ''}<button class="link red" data-act="rmcode" data-code="${esc(c.code)}">Retirer</button></div></div>`;
   }).join('');
   return `<h1>Récapitulatif</h1>
-    <div class="band"><div class="l">${t.persons ? `ACCRÉDITATIONS POUR ${t.persons} PERSONNE${t.persons > 1 ? 'S' : ''}` : 'VOTRE COMMANDE'}</div><div class="r">TOTAL : ${eur(t.ttc)}</div></div>
+    <div class="band"><div class="l">${orderTitle(t).toUpperCase() || 'VOTRE COMMANDE'}</div><div class="r">TOTAL : ${eur(t.ttc)}</div></div>
     <div class="promo"><label class="chk"><input type="checkbox" checked disabled> Je dispose d'un code promotionnel</label>
       <div class="prow"><input id="promo" placeholder="Je saisis mon code" autocomplete="off"><button class="btn ghost" data-act="apply-code">J'applique</button></div>
       ${ui.promoMsg ? `<p class="msg ${ui.promoMsg.ok ? 'ok' : 'ko'}">${esc(ui.promoMsg.text)}</p>` : ''}
@@ -217,7 +239,7 @@ function viewPay() {
       <div class="info">Si votre demande d'accréditation est refusée, le montant payé vous sera automatiquement remboursé.</div></div>`;
   const label = t.deferred ? 'Valider (paiement en attente)' : t.ttc === 0 ? 'Valider la commande' : `Payer ${eur(t.ttc)}`;
   return `<h1>Récapitulatif final et paiement</h1>
-    <div class="band"><div class="l">VOTRE COMMANDE${t.persons ? ` · ${t.persons} PERSONNE${t.persons > 1 ? 'S' : ''}` : ''}</div><div class="r">TOTAL : ${eur(t.ttc)}</div></div>
+    <div class="band"><div class="l">VOTRE COMMANDE${orderTitle(t) ? ' · ' + orderTitle(t).toUpperCase() : ''}</div><div class="r">TOTAL : ${eur(t.ttc)}</div></div>
     ${linesTable(t)}${totalsBox(t)}
     <div class="addr"><b>Facturé à</b><br>${esc(b.civ)} ${esc(b.prenom)} ${esc(b.nom)} · ${esc(b.societe)}<br>${esc(b.adresse)} ${esc(b.adresse2)}, ${esc(b.cp)} ${esc(b.ville)}, ${esc(b.pays)}<br>${esc(b.email)} <a href="#/facturation">Modifier</a></div>
     <h2 class="sec">Conditions générales</h2>
@@ -238,7 +260,7 @@ function doPay() {
   setTimeout(() => {
     const t2 = priceCart();
     const order = { id: 'CMD-' + new Date().getFullYear() + '-' + Math.floor(10000 + Math.random() * 89999), date: new Date().toISOString(),
-      status: t2.deferred ? 'pending' : 'paid', totals: { ht: t2.ht, ttc: t2.ttc, vat: t2.vat, persons: t2.persons }, lines: t2.lines,
+      status: t2.deferred ? 'pending' : 'paid', totals: { ht: t2.ht, ttc: t2.ttc, vat: t2.vat, persons: t2.persons, counts: t2.counts }, lines: t2.lines,
       billing: { ...S.billing }, codes: S.applied.map(a => a.codeId) };
     S.applied.forEach(a => { const c = codeBy(a.codeId); if (c.single) c.used = true; });
     S.orders.unshift(order); S.lastOrder = order; S.cart = []; S.applied = []; ui.promoMsg = null;

@@ -86,3 +86,5 @@ table{border-collapse:collapse;width:100%}.lines th{font-size:11px;letter-spacin
 .panel+.fld{margin-top:14px}
 
 .rand{display:flex;gap:10px;align-items:center;margin-bottom:14px}.rand span{color:var(--mut);font-size:12px}.rand input{width:70px}
+
+.tw{overflow-x:auto}.lines .shead td{background:var(--navy);color:#fff;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:12px;border-top:0}.lines tbody.sec+tbody .ghead td,.lines tbody.sec+tbody td{border-top:0}.lines td small{white-space:nowrap}

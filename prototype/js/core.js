@@ -120,7 +120,9 @@ function priceCart() {
   lines.forEach(l => { t.ht += l.net; t.ttc += l.ttc; t.vat[l.vat] = (t.vat[l.vat] || 0) + l.vatAmt; });
   t.ht = r2(t.ht); t.ttc = r2(t.ttc);
   t.deferred = S.applied.some(a => codeBy(a.codeId).deferred);
+  t.counts = { acc: 0, films: lines.filter(l => l.key === 'film:fee').length, stand: lines.filter(l => l.ctx === 'STAND').reduce((n, l) => n + l.qty, 0) };
   t.persons = new Set(lines.filter(l => l.kind !== 'contrib' && l.ctx !== 'FILM' && l.ctx !== 'STAND').flatMap(l => l.owner.split(', '))).size;
+  t.counts.acc = t.persons;
   return t;
 }
 
